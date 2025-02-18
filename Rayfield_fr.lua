@@ -10,7 +10,7 @@
 ]]
 
 if debugX then
-	warn('Initialising Rayfield')
+	warn('Initialisation de Rayfield.')
 end
 
 local requestsDisabled = getgenv and getgenv().DISABLE_RAYFIELD_REQUESTS
@@ -22,13 +22,13 @@ local ConfigurationExtension = ".rfld"
 local settingsTable = {
 	General = {
 		-- if needs be in order just make getSetting(name)
-		rayfieldOpen = {Type = 'bind', Value = 'K', Name = 'Rayfield Keybind'},
+		rayfieldOpen = {Type = 'Liaison', Value = 'K', Name = 'Raccourci clavier de Rayfield'},
 		-- buildwarnings
 		-- rayfieldprompts
 
 	},
 	System = {
-		usageAnalytics = {Type = 'toggle', Value = true, Name = 'Anonymised Analytics'},
+		usageAnalytics = {Type = 'Basculer', Value = true, Name = 'Analytique anonymisée.'},
 	}
 }
 
@@ -59,7 +59,7 @@ local function loadSettings()
 			-- for debug in studio
 			if useStudio then
 				file = [[
-		{"General":{"rayfieldOpen":{"Value":"K","Type":"bind","Name":"Rayfield Keybind","Element":{"HoldToInteract":false,"Ext":true,"Name":"Rayfield Keybind","Set":null,"CallOnChange":true,"Callback":null,"CurrentKeybind":"K"}}},"System":{"usageAnalytics":{"Value":false,"Type":"toggle","Name":"Anonymised Analytics","Element":{"Ext":true,"Name":"Anonymised Analytics","Set":null,"CurrentValue":false,"Callback":null}}}}
+		{"Général":{"rayfieldOpen":{"Valeur":"K","Type":"raccourci clavier","Nom":"Raccourci clavier de Rayfield","Élément":{"MaintenirPourInteragir":false,"Ext":true,"Nom":"Raccourci clavier de Rayfield","Set":null,"AppelAuChangement":true,"Callback":null,"RaccourciActuel":"K"}}},"Système":{"usageAnalytics":{"Valeur":false,"Type":"basculer","Nom":"Analytique anonymisée","Élément":{"Ext":true,"Nom":"Analytique anonymisée","Set":null,"ValeurActuelle":false,"Callback":null}}}}
 	]]
 			end
 
@@ -98,54 +98,54 @@ local function loadSettings()
 	
 	if not success then 
 		if writefile then
-			warn('Rayfield had an issue accessing configuration saving capability.')
+			warn('Rayfield a rencontré un problème pour accéder à la capacité de sauvegarde de la configuration.')
 		end
 	end
 end
 
 if debugX then
-	warn('Now Loading Settings Configuration')
+	warn('Chargement de la configuration des paramètres.')
 end
 
 loadSettings()
 
 if debugX then
-	warn('Settings Loaded')
+	warn('Paramètres chargés.')
 end
 
---if not cachedSettings or not cachedSettings.System or not cachedSettings.System.usageAnalytics then
---	local fileFunctionsAvailable = isfile and writefile and readfile
+--si les paramètres sauvegardés ne sont pas présents ou si les paramètres système ou les statistiques d'utilisation ne sont pas définis
+--	local fonctionsFichierDisponibles = isfile et writefile et readfile
 
---	if not fileFunctionsAvailable and not useStudio then
---		warn('Rayfield Interface Suite | Sirius Analytics:\n\n\nAs you don\'t have file functionality with your executor, we are unable to save whether you want to opt in or out to analytics.\nIf you do not want to take part in anonymised usage statistics, let us know in our Discord at sirius.menu/discord and we will manually opt you out.')
+--	if not fonctionsFichierDisponibles et pas useStudio then
+--		avertir('Rayfield Interface Suite | Sirius Analytics:\n\n\nÉtant donné que vous n\'avez pas la fonctionnalité de fichier avec votre exécuteur, nous ne pouvons pas enregistrer votre préférence pour les statistiques anonymisées.\nSi vous ne souhaitez pas participer à la collecte des statistiques d\'utilisation anonymisées, faites-le nous savoir sur notre Discord à sirius.menu/discord et nous vous désinscrirons manuellement.')
 --		analytics = true	
 --	else
 --		prompt.create(
---			'Help us improve',
---	            [[Would you like to allow Sirius to collect usage statistics?
+--			'Aidez-nous à nous améliorer',
+--	            [[Souhaitez-vous permettre à Sirius de collecter des statistiques d'utilisation ?
 
---<font transparency='0.4'>No data is linked to you or your personal activity.</font>]],
---			'Continue',
---			'Cancel',
---			function(result)
---				settingsTable.System.usageAnalytics.Value = result
---				analytics = result
+--<font transparency='0.4'>Aucune donnée n\'est liée à vous ni à vos activités personnelles.</font>]],
+--			'Continuer',
+--			'Annuler',
+--			fonction(resultat)
+--				settingsTable.System.usageAnalytics.Value = resultat
+--				analytics = resultat
 --			end
 --		)
 --	end
 
---	repeat task.wait() until analytics ~= nil
---end
+--	répéter task.wait() jusqu\'à ce que analytics ne soit pas nul
+--fin
 
 if not requestsDisabled then
 	if debugX then
-		warn('Querying Settings for Reporter Information')
+		warn('Interrogation des paramètres pour obtenir les informations du reporter.')
 	end
 	local function sendReport()
 		if useStudio then
-			print('Sending Analytics')
+			print('Envoi des statistiques anonymisées.')
 		else
-			if debugX then warn('Reporting Analytics') end
+			if debugX then warn('Rapport des statistiques anonymisées.') end
 			task.spawn(function()
 				local success, reporter = pcall(function()
 					return loadstring(game:HttpGet("https://analytics.sirius.menu/v1/reporter", true))()
@@ -155,10 +155,10 @@ if not requestsDisabled then
 						reporter.report("Rayfield", Release, InterfaceBuild)
 					end)
 				else
-					warn("Failed to load or execute the reporter. \nPlease notify Rayfield developers at sirius.menu/discord.")
+					warn("Échec du chargement ou de l'exécution du reporter. \nVeuillez notifier les développeurs de Rayfield sur sirius.menu/discord.")
 				end
 			end)
-			if debugX then warn('Finished Report') end
+			if debugX then warn('Rapport terminé.') end
 		end
 	end
 	if cachedSettings and (#cachedSettings == 0 or (cachedSettings.System and cachedSettings.System.usageAnalytics and cachedSettings.System.usageAnalytics.Value)) then
@@ -169,7 +169,7 @@ if not requestsDisabled then
 end
 
 if debugX then
-	warn('Moving on to continue initialisation')
+	warn('Passage à la suite de l\'initialisation.')
 end
 
 local RayfieldLibrary = {
@@ -578,8 +578,8 @@ repeat
 	correctBuild = false
 
 	if not warned then
-		warn('Rayfield | Build Mismatch')
-		print('Rayfield may encounter issues as you are running an incompatible interface version ('.. ((Rayfield:FindFirstChild('Build') and Rayfield.Build.Value) or 'No Build') ..').\n\nThis version of Rayfield is intended for interface build '..InterfaceBuild..'.')
+		warn('Rayfield | Incompatibilité de la version.')
+		print('Rayfield pourrait rencontrer des problèmes car vous utilisez une version d\'interface incompatible. ('.. ((Rayfield:FindFirstChild('Version.') and Rayfield.Build.Value) or 'Pas de version.') ..').\n\nCette version de Rayfield est destinée à la version de l\'interface. '..InterfaceBuild..'.')
 		warned = true
 	end
 
@@ -716,14 +716,14 @@ local function getIcon(name : string)
 
 	local r = sizedicons[name]
 	if not r then
-		error(`Lucide Icons: Failed to find icon by the name of "{name}"`, 2)
+		error(`Icônes Lucide : Impossible de trouver l'icône avec le nom "{name}".`, 2)
 	end
 
 	local rirs = r[2]
 	local riro = r[3]
 
 	if type(r[1]) ~= "number" or type(rirs) ~= "table" or type(riro) ~= "table" then
-		error("Lucide Icons: Internal error: Invalid auto-generated asset entry")
+		error("Icônes Lucide : Erreur interne : Entrée d'actif générée automatiquement invalide.")
 	end
 
 	local irs = Vector2.new(rirs[1], rirs[2])
@@ -829,7 +829,7 @@ local function LoadConfiguration(Configuration)
 	local success, Data = pcall(function() return HttpService:JSONDecode(Configuration) end)
 	local changed
 
-	if not success then warn('Rayfield had an issue decoding the configuration file, please try delete the file and reopen Rayfield.') return end
+	if not success then warn('Rayfield a rencontré un problème lors du décodage du fichier de configuration. Veuillez essayer de supprimer le fichier et rouvrir Rayfield.') return end
 
 	-- Iterate through current UI elements' flags
 	for FlagName, Flag in pairs(RayfieldLibrary.Flags) do
@@ -848,9 +848,9 @@ local function LoadConfiguration(Configuration)
 				end
 			end)
 		else
-			warn("Rayfield | Unable to find '"..FlagName.. "' in the save file.")
-			print("The error above may not be an issue if new elements have been added or not been set values.")
-			--RayfieldLibrary:Notify({Title = "Rayfield Flags", Content = "Rayfield was unable to find '"..FlagName.. "' in the save file. Check sirius.menu/discord for help.", Image = 3944688398})
+			warn("Rayfield | Impossible de trouver. '"..FlagName.. "' dans le fichier de sauvegarde..")
+			print("L'erreur ci-dessus ne devrait pas poser de problème si de nouveaux éléments ont été ajoutés ou si des valeurs n'ont pas été définies.")
+			--RayfieldLibrary:Notify({Title = "Rayfield Flags", Content = "Rayfield n'a pas pu trouver '"..FlagName.. "' dans le fichier de sauvegarde. Consultez sirius.menu/discord pour obtenir de l'aide.", Image = 3944688398})
 		end
 	end
 
@@ -911,14 +911,14 @@ function RayfieldLibrary:Notify(data) -- action e.g open messages
 
 		-- Notification Object Creation
 		local newNotification = Notifications.Template:Clone()
-		newNotification.Name = data.Title or 'No Title Provided'
+		newNotification.Name = data.Title or 'Aucun titre fourni.'
 		newNotification.Parent = Notifications
 		newNotification.LayoutOrder = #Notifications:GetChildren()
 		newNotification.Visible = false
 
 		-- Set Data
-		newNotification.Title.Text = data.Title or "Unknown Title"
-		newNotification.Description.Text = data.Content or "Unknown Content"
+		newNotification.Title.Text = data.Title or "Titre inconnu."
+		newNotification.Description.Text = data.Content or "Contenu inconnu."
 
 		if data.Image then
 			if typeof(data.Image) == 'string' then
@@ -956,8 +956,8 @@ function RayfieldLibrary:Notify(data) -- action e.g open messages
 		newNotification.Visible = true
 
 		if data.Actions then
-			warn('Rayfield | Not seeing your actions in notifications?')
-			print("Notification Actions are being sunset for now, keep up to date on when they're back in the discord. (sirius.menu/discord)")
+			warn('Rayfield | Vous ne voyez pas vos actions dans les notifications ?')
+			print("Les actions de notification sont suspendues pour le moment. Restez informé de leur retour sur notre Discord. (sirius.menu/discord)")
 		end
 
 		-- Calculate textbounds and set initial values
@@ -1082,9 +1082,9 @@ local function Hide(notify: boolean?)
 	Debounce = true
 	if notify then
 		if useMobilePrompt then 
-			RayfieldLibrary:Notify({Title = "Interface Hidden", Content = "The interface has been hidden, you can unhide the interface by tapping 'Show Rayfield'.", Duration = 7, Image = 4400697855})
+			RayfieldLibrary:Notify({Title = "Interface masquée.", Content = "L'interface a été masquée. Vous pouvez la réafficher en appuyant sur « Afficher Rayfield ».'.", Duration = 7, Image = 4400697855})
 		else
-			RayfieldLibrary:Notify({Title = "Interface Hidden", Content = `The interface has been hidden, you can unhide the interface by tapping {settingsTable.General.rayfieldOpen.Value or 'K'}.`, Duration = 7, Image = 4400697855})
+			RayfieldLibrary:Notify({Title = "Interface masquée.", Content = `L'interface a été masquée. Vous pouvez la réafficher en appuyant sur {settingsTable.General.rayfieldOpen.Value ou 'K'}.`, Duration = 7, Image = 4400697855})
 		end
 	end
 
@@ -1385,20 +1385,20 @@ end
 
 local function createSettings(window)
 	if not (writefile and isfile and readfile and isfolder and makefolder) and not useStudio then
-		if Topbar['Settings'] then Topbar.Settings.Visible = false end
-		Topbar['Search'].Position = UDim2.new(1, -75, 0.5, 0)
-		warn('Can\'t create settings as no file-saving functionality is available.')
+		if Topbar['Paramètres'] then Topbar.Settings.Visible = false end
+		Topbar['Recherche.'].Position = UDim2.new(1, -75, 0.5, 0)
+		warn('Impossible de créer les paramètres car aucune fonctionnalité de sauvegarde de fichier n\'est disponible.')
 		return
 	end
 
-	local newTab = window:CreateTab('Rayfield Settings', 0, true)
+	local newTab = window:CreateTab('Paramètres de Rayfield.', 0, true)
 
-	if TabList['Rayfield Settings'] then
-		TabList['Rayfield Settings'].LayoutOrder = 1000
+	if TabList['Paramètres de Rayfield.'] then
+		TabList['Paramètres de Rayfield.'].LayoutOrder = 1000
 	end
 
-	if Elements['Rayfield Settings'] then
-		Elements['Rayfield Settings'].LayoutOrder = 1000
+	if Elements['Paramètres de Rayfield.'] then
+		Elements['Paramètres de Rayfield.'].LayoutOrder = 1000
 	end
 
 	-- Create sections and elements
@@ -1452,7 +1452,7 @@ end
 
 
 function RayfieldLibrary:CreateWindow(Settings)
-	if Rayfield:FindFirstChild('Loading') then
+	if Rayfield:FindFirstChild('Chargement.') then
 		if getgenv and not getgenv().rayfieldCached then
 			Rayfield.Enabled = true
 			Rayfield.Loading.Visible = true
@@ -1467,7 +1467,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 	if not correctBuild and not Settings.DisableBuildWarnings then
 		task.delay(3, 
 			function() 
-				RayfieldLibrary:Notify({Title = 'Build Mismatch', Content = 'Rayfield may encounter issues as you are running an incompatible interface version ('.. ((Rayfield:FindFirstChild('Build') and Rayfield.Build.Value) or 'No Build') ..').\n\nThis version of Rayfield is intended for interface build '..InterfaceBuild..'.\n\nTry rejoining and then run the script twice.', Image = 4335487866, Duration = 15})		
+				RayfieldLibrary:Notify({Title = 'Incompatibilité de la version.', Content = 'Rayfield pourrait rencontrer des problèmes car vous utilisez une version d\'interface incompatible ('.. ((Rayfield:FindFirstChild('Version.') and Rayfield.Build.Value) or 'Pas de version.') ..').\n\nCette version de Rayfield est destinée à la version de l\'interface '..InterfaceBuild..'.\n\nEssayez de rejoindre à nouveau, puis exécutez le script deux fois.', Image = 4335487866, Duration = 15})		
 			end)
 	end
 
@@ -1525,10 +1525,10 @@ function RayfieldLibrary:CreateWindow(Settings)
 		if not success then
 			local success, result2 = pcall(ChangeTheme, 'Default')
 			if not success then
-				warn('CRITICAL ERROR - NO DEFAULT THEME')
+				warn('ERREUR CRITIQUE - AUCUN THÈME PAR DÉFAUT.')
 				print(result2)
 			end
-			warn('issue rendering theme. no theme on file')
+			warn('Problème de rendu du thème. Aucun thème dans le fichier.')
 			print(result)
 		end
 	end
@@ -1542,8 +1542,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 			while true do
 				task.wait(math.random(180, 600))
 				RayfieldLibrary:Notify({
-					Title = "Rayfield Interface",
-					Content = "Enjoying this UI library? Find it at sirius.menu/discord",
+					Title = "Interface Rayfield.",
+					Content = "Vous aimez cette bibliothèque d'interface ? Trouvez-la sur sirius.menu/discord.",
 					Duration = 7,
 					Image = 4370033185,
 				})
@@ -1609,7 +1609,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end
 
 			if Settings.Discord.RememberJoins then -- We do logic this way so if the developer changes this setting, the user still won't be prompted, only new users
-				writefile(RayfieldFolder.."/Discord Invites".."/"..Settings.Discord.Invite..ConfigurationExtension,"Rayfield RememberJoins is true for this invite, this invite will not ask you to join again")
+				writefile(RayfieldFolder.."/Discord Invites".."/"..Settings.Discord.Invite..ConfigurationExtension,"Rayfield RememberJoins est activé pour cette invitation, vous ne serez pas invité à rejoindre à nouveau.")
 			end
 		end
 	end
@@ -1633,14 +1633,14 @@ function RayfieldLibrary:CreateWindow(Settings)
 					Settings.KeySettings.Key[i] = string.gsub(Settings.KeySettings.Key[i], " ", "")
 				end)
 				if not Success then
-					print("Rayfield | "..Key.." Error " ..tostring(Response))
-					warn('Check docs.sirius.menu for help with Rayfield specific development.')
+					print("Rayfield | "..Key.." Erreur. " ..tostring(Response))
+					warn('Consultez docs.sirius.menu pour obtenir de l\'aide sur le développement spécifique à Rayfield.')
 				end
 			end
 		end
 
 		if not Settings.KeySettings.FileName then
-			Settings.KeySettings.FileName = "No file name specified"
+			Settings.KeySettings.FileName = "Aucun nom de fichier spécifié."
 		end
 
 		if isfile and isfile(RayfieldFolder.."/Key System".."/"..Settings.KeySettings.FileName..ConfigurationExtension) then
@@ -1758,7 +1758,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 						if writefile then
 							writefile(RayfieldFolder.."/Key System".."/"..Settings.KeySettings.FileName..ConfigurationExtension, FoundKey)
 						end
-						RayfieldLibrary:Notify({Title = "Key System", Content = "The key for this script has been saved successfully.", Image = 3605522284})
+						RayfieldLibrary:Notify({Title = "Système de clés.", Content = "La clé pour ce script a été sauvegardée avec succès.", Image = 3605522284})
 					end
 				else
 					if AttemptsRemaining == 0 then
@@ -1775,7 +1775,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 						TweenService:Create(KeyMain.NoteMessage, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
 						TweenService:Create(KeyMain.Hide, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {ImageTransparency = 1}):Play()
 						task.wait(0.45)
-						Players.LocalPlayer:Kick("No Attempts Remaining")
+						Players.LocalPlayer:Kick("Aucune tentative restante.")
 						game:Shutdown()
 					end
 					KeyMain.Input.InputBox.Text = ""
@@ -1983,9 +1983,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 					TweenService:Create(Button, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 					TweenService:Create(Button.ElementIndicator, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
 					TweenService:Create(Button.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
-					Button.Title.Text = "Callback Error"
-					print("Rayfield | "..ButtonSettings.Name.." Callback Error " ..tostring(Response))
-					warn('Check docs.sirius.menu for help with Rayfield specific development.')
+					Button.Title.Text = "Erreur de rappel."
+					print("Rayfield | "..ButtonSettings.Name.." Erreur de rappel. " ..tostring(Response))
+					warn('Consultez docs.sirius.menu pour obtenir de l\'aide sur le développement spécifique à Rayfield.')
 					task.wait(0.5)
 					Button.Title.Text = ButtonSettings.Name
 					TweenService:Create(Button, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -2487,9 +2487,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 				if not Success then
 					TweenService:Create(Input, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 					TweenService:Create(Input.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
-					Input.Title.Text = "Callback Error"
-					print("Rayfield | "..InputSettings.Name.." Callback Error " ..tostring(Response))
-					warn('Check docs.sirius.menu for help with Rayfield specific development.')
+					Input.Title.Text = "Erreur de rappel."
+					print("Rayfield | "..InputSettings.Name.." Erreur de rappel. " ..tostring(Response))
+					warn('Consultez docs.sirius.menu pour obtenir de l\'aide sur le développement spécifique à Rayfield.')
 					task.wait(0.5)
 					Input.Title.Text = InputSettings.Name
 					TweenService:Create(Input, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -2727,9 +2727,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 						if not Success then
 							TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 							TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
-							Dropdown.Title.Text = "Callback Error"
-							print("Rayfield | "..DropdownSettings.Name.." Callback Error " ..tostring(Response))
-							warn('Check docs.sirius.menu for help with Rayfield specific development.')
+							Dropdown.Title.Text = "Erreur de rappel."
+							print("Rayfield | "..DropdownSettings.Name.." Erreur de rappel. " ..tostring(Response))
+							warn('Consultez docs.sirius.menu pour obtenir de l\'aide sur le développement spécifique à Rayfield.')
 							task.wait(0.5)
 							Dropdown.Title.Text = DropdownSettings.Name
 							TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -2817,9 +2817,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 				if not Success then
 					TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 					TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
-					Dropdown.Title.Text = "Callback Error"
-					print("Rayfield | "..DropdownSettings.Name.." Callback Error " ..tostring(Response))
-					warn('Check docs.sirius.menu for help with Rayfield specific development.')
+					Dropdown.Title.Text = "Erreur de rappel."
+					print("Rayfield | "..DropdownSettings.Name.." Erreur de rappel. " ..tostring(Response))
+					warn('Consultez docs.sirius.menu pour obtenir de l\'aide sur le développement spécifique à Rayfield.')
 					task.wait(0.5)
 					Dropdown.Title.Text = DropdownSettings.Name
 					TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -2938,9 +2938,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 						if not Success then
 							TweenService:Create(Keybind, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 							TweenService:Create(Keybind.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
-							Keybind.Title.Text = "Callback Error"
-							print("Rayfield | "..KeybindSettings.Name.." Callback Error " ..tostring(Response))
-							warn('Check docs.sirius.menu for help with Rayfield specific development.')
+							Keybind.Title.Text = "Erreur de rappel."
+							print("Rayfield | "..KeybindSettings.Name.." Erreur de rappel. " ..tostring(Response))
+							warn('Consultez docs.sirius.menu pour obtenir de l\'aide sur le développement spécifique à Rayfield.')
 							task.wait(0.5)
 							Keybind.Title.Text = KeybindSettings.Name
 							TweenService:Create(Keybind, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -3068,9 +3068,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 				if not Success then
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
-					Toggle.Title.Text = "Callback Error"
-					print("Rayfield | "..ToggleSettings.Name.." Callback Error " ..tostring(Response))
-					warn('Check docs.sirius.menu for help with Rayfield specific development.')
+					Toggle.Title.Text = "Erreur de rappel."
+					print("Rayfield | "..ToggleSettings.Name.." Erreur de rappel. " ..tostring(Response))
+					warn('Consultez docs.sirius.menu pour obtenir de l\'aide sur le développement spécifique à Rayfield.')
 					task.wait(0.5)
 					Toggle.Title.Text = ToggleSettings.Name
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -3118,9 +3118,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 				if not Success then
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
-					Toggle.Title.Text = "Callback Error"
-					print("Rayfield | "..ToggleSettings.Name.." Callback Error " ..tostring(Response))
-					warn('Check docs.sirius.menu for help with Rayfield specific development.')
+					Toggle.Title.Text = "Erreur de rappel."
+					print("Rayfield | "..ToggleSettings.Name.." Erreur de rappel. " ..tostring(Response))
+					warn('Consultez docs.sirius.menu pour obtenir de l\'aide sur le développement spécifique à Rayfield.')
 					task.wait(0.5)
 					Toggle.Title.Text = ToggleSettings.Name
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -3267,9 +3267,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 							if not Success then
 								TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 								TweenService:Create(Slider.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
-								Slider.Title.Text = "Callback Error"
-								print("Rayfield | "..SliderSettings.Name.." Callback Error " ..tostring(Response))
-								warn('Check docs.sirius.menu for help with Rayfield specific development.')
+								Slider.Title.Text = "Erreur de rappel."
+								print("Rayfield | "..SliderSettings.Name.." Erreur de rappel. " ..tostring(Response))
+								warn('Consultez docs.sirius.menu pour obtenir de l\'aide sur le développement spécifique à Rayfield.')
 								task.wait(0.5)
 								Slider.Title.Text = SliderSettings.Name
 								TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -3301,9 +3301,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 				if not Success then
 					TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 					TweenService:Create(Slider.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
-					Slider.Title.Text = "Callback Error"
-					print("Rayfield | "..SliderSettings.Name.." Callback Error " ..tostring(Response))
-					warn('Check docs.sirius.menu for help with Rayfield specific development.')
+					Slider.Title.Text = "Erreur de rappel."
+					print("Rayfield | "..SliderSettings.Name.." Erreur de rappel. " ..tostring(Response))
+					warn('Consultez docs.sirius.menu pour obtenir de l\'aide sur le développement spécifique à Rayfield.')
 					task.wait(0.5)
 					Slider.Title.Text = SliderSettings.Name
 					TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -3405,9 +3405,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 	function Window.ModifyTheme(NewTheme)
 		local success = pcall(ChangeTheme, NewTheme)
 		if not success then
-			RayfieldLibrary:Notify({Title = 'Unable to Change Theme', Content = 'We are unable find a theme on file.', Image = 4400704299})
+			RayfieldLibrary:Notify({Title = 'Impossible de changer le thème.', Content = 'Nous ne parvenons pas à trouver de thème dans le fichier.', Image = 4400704299})
 		else
-			RayfieldLibrary:Notify({Title = 'Theme Changed', Content = 'Successfully changed theme to '..(typeof(NewTheme) == 'string' and NewTheme or 'Custom Theme')..'.', Image = 4483362748})
+			RayfieldLibrary:Notify({Title = 'Thème changé.', Content = 'Le thème a été changé avec succès en '..(typeof(NewTheme) == 'string' and NewTheme or 'Thème personnalisé')..'.', Image = 4483362748})
 		end
 	end
 
@@ -3415,7 +3415,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 		createSettings(Window)
 	end)
 	
-	if not success then warn('Rayfield had an issue creating settings.') end
+	if not success then warn('Rayfield a rencontré un problème lors de la création des paramètres.') end
 	
 	return Window
 end
@@ -3576,7 +3576,7 @@ function RayfieldLibrary:LoadConfiguration()
 	local config
 
 	if debugX then
-		warn('Loading Configuration')
+		warn('Chargement de la configuration')
 	end
 
 	if useStudio then
@@ -3599,15 +3599,15 @@ function RayfieldLibrary:LoadConfiguration()
 				end
 			else
 				notified = true
-				RayfieldLibrary:Notify({Title = "Rayfield Configurations", Content = "We couldn't enable Configuration Saving as you are not using software with filesystem support.", Image = 4384402990})
+				RayfieldLibrary:Notify({Title = "Configurations Rayfield", Content = "Nous n'avons pas pu activer l'enregistrement de la configuration car vous n'utilisez pas de logiciel prenant en charge le système de fichiers.", Image = 4384402990})
 			end
 		end)
 
 		if success and loaded and not notified then
-			RayfieldLibrary:Notify({Title = "Rayfield Configurations", Content = "The configuration file for this script has been loaded from a previous session.", Image = 4384403532})
+			RayfieldLibrary:Notify({Title = "Configurations Rayfield", Content = "Le fichier de configuration de ce script a été chargé à partir d'une session précédente.", Image = 4384403532})
 		elseif not success and not notified then
-			warn('Rayfield Configurations Error | '..tostring(result))
-			RayfieldLibrary:Notify({Title = "Rayfield Configurations", Content = "We've encountered an issue loading your configuration correctly.\n\nCheck the Developer Console for more information.", Image = 4384402990})
+			warn('Erreur de configuration Rayfield | '..tostring(result))
+			RayfieldLibrary:Notify({Title = "Configurations Rayfield", Content = "Nous avons rencontré un problème lors du chargement correct de votre configuration.\n\nConsultez la console du développeur pour plus d'informations.", Image = 4384402990})
 		end
 	end
 
@@ -3617,134 +3617,131 @@ end
 
 
 if useStudio then
-	-- run w/ studio
-	-- Feel free to place your own script here to see how it'd work in Roblox Studio before running it on your execution software.
-
+	-- exécuter avec Studio
+	-- N'hésitez pas à placer votre propre script ici pour voir comment il fonctionnerait dans Roblox Studio avant de l'exécuter sur votre logiciel d'exécution.
 
 	local Window = RayfieldLibrary:CreateWindow({
-		Name = "Rayfield Example Window",
-		LoadingTitle = "Rayfield Interface Suite",
+		Name = "Exemple de Fenêtre Rayfield",
+		LoadingTitle = "Suite d'Interface Rayfield",
 		Theme = 'Default',
 		Icon = 0,
-		LoadingSubtitle = "by Sirius",
+		LoadingSubtitle = "par Sirius",
 		ConfigurationSaving = {
 			Enabled = true,
-			FolderName = nil, -- Create a custom folder for your hub/game
+			FolderName = nil, -- Créez un dossier personnalisé pour votre hub/jeu
 			FileName = "Big Hub52"
 		},
 		Discord = {
 			Enabled = false,
-			Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
-			RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+			Invite = "noinvitelink", -- Le code d'invitation Discord, n'incluez pas discord.gg/. Par exemple, discord.gg/ABCD serait ABCD
+			RememberJoins = true -- Définissez ceci sur false pour les faire rejoindre le discord à chaque fois qu'ils le chargent
 		},
-		KeySystem = false, -- Set this to true to use our key system
+		KeySystem = false, -- Définissez ceci sur true pour utiliser notre système de clé
 		KeySettings = {
-			Title = "Untitled",
-			Subtitle = "Key System",
-			Note = "No method of obtaining the key is provided",
-			FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-			SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-			GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-			Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+			Title = "Sans Titre",
+			Subtitle = "Système de Clé",
+			Note = "Aucune méthode d'obtention de la clé n'est fournie",
+			FileName = "Key", -- Il est recommandé d'utiliser quelque chose d'unique car d'autres scripts utilisant Rayfield pourraient écraser votre fichier de clé
+			SaveKey = true, -- La clé de l'utilisateur sera sauvegardée, mais si vous changez la clé, ils ne pourront plus utiliser votre script
+			GrabKeyFromSite = false, -- Si ceci est true, définissez Key ci-dessous sur le site RAW à partir duquel vous souhaitez que Rayfield obtienne la clé
+			Key = {"Hello"} -- Liste des clés qui seront acceptées par le système, peut être des liens de fichiers RAW (pastebin, github etc) ou des chaînes simples ("hello","key22")
 		}
 	})
 
-	local Tab = Window:CreateTab("Tab Example", 'key-round') -- Title, Image
-	local Tab2 = Window:CreateTab("Tab Example 2", 4483362458) -- Title, Image
+	local Tab = Window:CreateTab("Exemple d'Onglet", 'key-round') -- Titre, Image
+	local Tab2 = Window:CreateTab("Exemple d'Onglet 2", 4483362458) -- Titre, Image
 
 	local Section = Tab2:CreateSection("Section")
 
-
 	local ColorPicker = Tab2:CreateColorPicker({
-		Name = "Color Picker",
+		Name = "Sélecteur de Couleur",
 		Color = Color3.fromRGB(255,255,255),
-		Flag = "ColorPicfsefker1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Flag = "ColorPicfsefker1", -- Un flag est l'identifiant pour le fichier de configuration, assurez-vous que chaque élément a un flag différent si vous utilisez la sauvegarde de configuration pour éviter les chevauchements
 		Callback = function(Value)
-			-- The function that takes place every time the color picker is moved/changed
-			-- The variable (Value) is a Color3fromRGB value based on which color is selected
+			-- La fonction qui s'exécute chaque fois que le sélecteur de couleur est déplacé/changé
+			-- La variable (Value) est une valeur Color3fromRGB basée sur la couleur sélectionnée
 		end
 	})
 
 	local Slider = Tab2:CreateSlider({
-		Name = "Slider Example",
+		Name = "Exemple de Curseur",
 		Range = {0, 100},
 		Increment = 10,
-		Suffix = "Bananas",
+		Suffix = "Bananes",
 		CurrentValue = 40,
-		Flag = "Slidefefsr1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Flag = "Slidefefsr1", -- Un flag est l'identifiant pour le fichier de configuration, assurez-vous que chaque élément a un flag différent si vous utilisez la sauvegarde de configuration pour éviter les chevauchements
 		Callback = function(Value)
-			-- The function that takes place when the slider changes
-			-- The variable (Value) is a number which correlates to the value the slider is currently at
+			-- La fonction qui s'exécute lorsque le curseur change
+			-- La variable (Value) est un nombre qui correspond à la valeur actuelle du curseur
 		end,
 	})
 
 	local Input = Tab2:CreateInput({
-		Name = "Input Example",
+		Name = "Exemple de Champ de Texte",
 		CurrentValue = '',
-		PlaceholderText = "Input Placeholder",
+		PlaceholderText = "Texte de l'espace réservé",
 		Flag = 'dawdawd',
 		RemoveTextAfterFocusLost = false,
 		Callback = function(Text)
-			-- The function that takes place when the input is changed
-			-- The variable (Text) is a string for the value in the text box
+			-- La fonction qui s'exécute lorsque le champ de texte est modifié
+			-- La variable (Text) est une chaîne pour la valeur dans la boîte de texte
 		end,
 	})
 
+	--RayfieldLibrary:Notify({Title = "Interface Rayfield", Content = "Bienvenue sur Rayfield. Ce sont les nouveaux designs de notifications pour Rayfield, avec des tailles personnalisées et des temps d'attente calculés par Rayfield.", Image = 4483362458})
 
-	--RayfieldLibrary:Notify({Title = "Rayfield Interface", Content = "Welcome to Rayfield. These - are the brand new notification design for Rayfield, with custom sizing and Rayfield calculated wait times.", Image = 4483362458})
-
-	local Section = Tab:CreateSection("Section Example")
+	local Section = Tab:CreateSection("Exemple de Section")
 
 	local Button = Tab:CreateButton({
-		Name = "Change Theme",
+		Name = "Changer le Thème",
 		Callback = function()
-			-- The function that takes place when the button is pressed
+			-- La fonction qui s'exécute lorsque le bouton est pressé
 			Window.ModifyTheme('DarkBlue')
 		end,
 	})
 
 	local Toggle = Tab:CreateToggle({
-		Name = "Toggle Example",
+		Name = "Exemple de Bascule",
 		CurrentValue = false,
-		Flag = "Toggle1adwawd", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Flag = "Toggle1adwawd", -- Un flag est l'identifiant pour le fichier de configuration, assurez-vous que chaque élément a un flag différent si vous utilisez la sauvegarde de configuration pour éviter les chevauchements
 		Callback = function(Value)
-			-- The function that takes place when the toggle is pressed
-			-- The variable (Value) is a boolean on whether the toggle is true or false
+			-- La fonction qui s'exécute lorsque la bascule est pressée
+			-- La variable (Value) est un booléen indiquant si la bascule est vraie ou fausse
 		end,
 	})
 
 	local ColorPicker = Tab:CreateColorPicker({
-		Name = "Color Picker",
+		Name = "Sélecteur de Couleur",
 		Color = Color3.fromRGB(255,255,255),
-		Flag = "ColorPicker1awd", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Flag = "ColorPicker1awd", -- Un flag est l'identifiant pour le fichier de configuration, assurez-vous que chaque élément a un flag différent si vous utilisez la sauvegarde de configuration pour éviter les chevauchements
 		Callback = function(Value)
-			-- The function that takes place every time the color picker is moved/changed
-			-- The variable (Value) is a Color3fromRGB value based on which color is selected
+			-- La fonction qui s'exécute chaque fois que le sélecteur de couleur est déplacé/changé
+			-- La variable (Value) est une valeur Color3fromRGB basée sur la couleur sélectionnée
 		end
 	})
 
 	local Slider = Tab:CreateSlider({
-		Name = "Slider Example",
+		Name = "Exemple de Curseur",
 		Range = {0, 100},
 		Increment = 10,
-		Suffix = "Bananas",
+		Suffix = "Bananes",
 		CurrentValue = 40,
-		Flag = "Slider1dawd", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Flag = "Slider1dawd", -- Un flag est l'identifiant pour le fichier de configuration, assurez-vous que chaque élément a un flag différent si vous utilisez la sauvegarde de configuration pour éviter les chevauchements
 		Callback = function(Value)
-			-- The function that takes place when the slider changes
-			-- The variable (Value) is a number which correlates to the value the slider is currently at
+			-- La fonction qui s'exécute lorsque le curseur change
+			-- La variable (Value) est un nombre qui correspond à la valeur actuelle du curseur
 		end,
 	})
 
 	local Input = Tab:CreateInput({
-		Name = "Input Example",
+		Name = "Exemple de Champ de Texte",
 		CurrentValue = "Helo",
-		PlaceholderText = "Adaptive Input",
+		PlaceholderText = "Champ de Texte Adaptatif",
 		RemoveTextAfterFocusLost = false,
 		Flag = 'Input1',
 		Callback = function(Text)
-			-- The function that takes place when the input is changed
-			-- The variable (Text) is a string for the value in the text box
+			-- La fonction qui s'exécute lorsque le champ de texte est modifié
+			-- La variable (Text) est une chaîne pour la valeur dans la boîte de texte
 		end,
 	})
 
@@ -3754,76 +3751,34 @@ if useStudio then
 	end
 
 	local Dropdown = Tab:CreateDropdown({
-		Name = "Theme",
+		Name = "Thème",
 		Options = thoptions,
 		CurrentOption = {"Default"},
 		MultipleOptions = false,
-		Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Flag = "Dropdown1", -- Un flag est l'identifiant pour le fichier de configuration, assurez-vous que chaque élément a un flag différent si vous utilisez la sauvegarde de configuration pour éviter les chevauchements
 		Callback = function(Options)
 			--Window.ModifyTheme(Options[1])
-			-- The function that takes place when the selected option is changed
-			-- The variable (Options) is a table of strings for the current selected options
+			-- La fonction qui s'exécute lorsque l'option sélectionnée est changée
+			-- La variable (Options) est une table de chaînes pour les options actuellement sélectionnées
 		end,
 	})
-
-
-	--Window.ModifyTheme({
-	--	TextColor = Color3.fromRGB(50, 55, 60),
-	--	Background = Color3.fromRGB(240, 245, 250),
-	--	Topbar = Color3.fromRGB(215, 225, 235),
-	--	Shadow = Color3.fromRGB(200, 210, 220),
-
-	--	NotificationBackground = Color3.fromRGB(210, 220, 230),
-	--	NotificationActionsBackground = Color3.fromRGB(225, 230, 240),
-
-	--	TabBackground = Color3.fromRGB(200, 210, 220),
-	--	TabStroke = Color3.fromRGB(180, 190, 200),
-	--	TabBackgroundSelected = Color3.fromRGB(175, 185, 200),
-	--	TabTextColor = Color3.fromRGB(50, 55, 60),
-	--	SelectedTabTextColor = Color3.fromRGB(30, 35, 40),
-
-	--	ElementBackground = Color3.fromRGB(210, 220, 230),
-	--	ElementBackgroundHover = Color3.fromRGB(220, 230, 240),
-	--	SecondaryElementBackground = Color3.fromRGB(200, 210, 220),
-	--	ElementStroke = Color3.fromRGB(190, 200, 210),
-	--	SecondaryElementStroke = Color3.fromRGB(180, 190, 200),
-
-	--	SliderBackground = Color3.fromRGB(200, 220, 235),  -- Lighter shade
-	--	SliderProgress = Color3.fromRGB(70, 130, 180),
-	--	SliderStroke = Color3.fromRGB(150, 180, 220),
-
-	--	ToggleBackground = Color3.fromRGB(210, 220, 230),
-	--	ToggleEnabled = Color3.fromRGB(70, 160, 210),
-	--	ToggleDisabled = Color3.fromRGB(180, 180, 180),
-	--	ToggleEnabledStroke = Color3.fromRGB(60, 150, 200),
-	--	ToggleDisabledStroke = Color3.fromRGB(140, 140, 140),
-	--	ToggleEnabledOuterStroke = Color3.fromRGB(100, 120, 140),
-	--	ToggleDisabledOuterStroke = Color3.fromRGB(120, 120, 130),
-
-	--	DropdownSelected = Color3.fromRGB(220, 230, 240),
-	--	DropdownUnselected = Color3.fromRGB(200, 210, 220),
-
-	--	InputBackground = Color3.fromRGB(220, 230, 240),
-	--	InputStroke = Color3.fromRGB(180, 190, 200),
-	--	PlaceholderColor = Color3.fromRGB(150, 150, 150)
-	--})
 
 	local Keybind = Tab:CreateKeybind({
-		Name = "Keybind Example",
+		Name = "Exemple de Raccourci",
 		CurrentKeybind = "Q",
 		HoldToInteract = false,
-		Flag = "Keybind1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Flag = "Keybind1", -- Un flag est l'identifiant pour le fichier de configuration, assurez-vous que chaque élément a un flag différent si vous utilisez la sauvegarde de configuration pour éviter les chevauchements
 		Callback = function(Keybind)
-			-- The function that takes place when the keybind is pressed
-			-- The variable (Keybind) is a boolean for whether the keybind is being held or not (HoldToInteract needs to be true)
+			-- La fonction qui s'exécute lorsque le raccourci est pressé
+			-- La variable (Keybind) est un booléen indiquant si le raccourci est maintenu ou non (HoldToInteract doit être true)
 		end,
 	})
 
-	local Label = Tab:CreateLabel("Label Example")
+	local Label = Tab:CreateLabel("Exemple de Label")
 
-	local Label2 = Tab:CreateLabel("Warning", 4483362458, Color3.fromRGB(255, 159, 49),  true)
+	local Label2 = Tab:CreateLabel("Avertissement", 4483362458, Color3.fromRGB(255, 159, 49),  true)
 
-	local Paragraph = Tab:CreateParagraph({Title = "Paragraph Example", Content = "Paragraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph Example"})
+	local Paragraph = Tab:CreateParagraph({Title = "Exemple de Paragraphe", Content = "Exemple de ParagrapheExemple de ParagrapheExemple de ParagrapheExemple de ParagrapheExemple de ParagrapheExemple de ParagrapheExemple de ParagrapheExemple de ParagrapheExemple de ParagrapheExemple de ParagrapheExemple de ParagrapheExemple de ParagrapheExemple de ParagrapheExemple de Paragraphe"})
 end
 
 if CEnabled and Main:FindFirstChild('Notice') then
@@ -3832,7 +3787,6 @@ if CEnabled and Main:FindFirstChild('Notice') then
 	Main.Notice.Size = UDim2.new(0, 0, 0, 0)
 	Main.Notice.Position = UDim2.new(0.5, 0, 0, -100)
 	Main.Notice.Visible = true
-
 
 	TweenService:Create(Main.Notice, TweenInfo.new(0.5, Enum.EasingStyle.Exponential, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 280, 0, 35), Position = UDim2.new(0.5, 0, 0, -50), BackgroundTransparency = 0.5}):Play()
 	TweenService:Create(Main.Notice.Title, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {TextTransparency = 0.1}):Play()
@@ -3844,7 +3798,7 @@ if not useStudio then
 	end)
 
 	if not success then
-		print('Error with boost file.')
+		print('Erreur avec le fichier boost.')
 		print(result)
 	end
 end
